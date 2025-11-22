@@ -17,6 +17,9 @@ export default function Header() {
           <Link to="/catalog" className="hover:text-indigo-600 transition">
             Catalog
           </Link>
+          <Link to="/create" className="hover:text-indigo-600">
+            Add Book
+          </Link>
           <Link to="/login" className="hover:text-indigo-600 transition">
             Login
           </Link>
