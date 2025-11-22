@@ -1,0 +1,35 @@
+{
+  "1a2b3c4d-5e6f-7g8h-9i0j-1k2l3m4n5o6p": {
+    "_id": "1a2b3c4d-5e6f-7g8h-9i0j-1k2l3m4n5o6p",
+    "_ownerId": "35c62d76-8152-4626-8712-eeb96381bea8",
+    "title": "A Game of Thrones",
+    "genre": "Epic Fantasy",
+    "pages": 694,
+    "date": "1996-08-06",
+    "imageUrl": "/images/got1.png",
+    "summary": "The first book in the A Song of Ice and Fire series. Noble families vie for control of the Iron Throne while dark forces stir beyond the Wall.",
+    "_createdOn": 1617194400000
+  },
+  "2b3c4d5e-6f7g-8h9i-0j1k-2l3m4n5o6p7q": {
+    "_id": "2b3c4d5e-6f7g-8h9i-0j1k-2l3m4n5o6p7q",
+    "_ownerId": "35c62d76-8152-4626-8712-eeb96381bea8",
+    "title": "Fire & Blood",
+    "genre": "Fantasy History",
+    "pages": 736,
+    "date": "2018-11-20",
+    "imageUrl": "/images/fireandblood.png",
+    "summary": "A detailed history of House Targaryen from Aegon the Conqueror to the regency of Aegon III, full of dragons, wars, and political intrigue.",
+    "_createdOn": 1617194450000
+  },
+  "3c4d5e6f-7g8h-9i0j-1k2l-3m4n5o6p7q8r": {
+    "_id": "3c4d5e6f-7g8h-9i0j-1k2l-3m4n5o6p7q8r",
+    "_ownerId": "35c62d76-8152-4626-8712-eeb96381bea8",
+    "title": "The Winds of Winter",
+    "genre": "Epic Fantasy",
+    "pages": 1024,
+    "date": "2025-12-01",
+    "imageUrl": "/images/winds-of-winter.png",
+    "summary": "The anticipated next book in the A Song of Ice and Fire series, continuing the story of Westeros and its battle for the Iron Throne.",
+    "_createdOn": 1733587200000
+  }
+}
