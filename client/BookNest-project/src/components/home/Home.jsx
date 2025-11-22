@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 import BookCard from "../bookCard/BookCard";
 import { useEffect, useState } from "react";
 
@@ -17,8 +18,6 @@ export default function Home() {
       .catch((err) => console.error("Error fetching latest books:", err));
   }, []);
 
-  console.log(latestBooks);
-
   return (
     <div>
       {/* Hero Section */}
@@ -33,12 +32,12 @@ export default function Home() {
           enthusiasts.
         </p>
 
-        <a
-          href="/catalog"
+        <Link
+          to="/catalog"
           className="bg-indigo-600 text-white px-6 py-3 rounded-lg text-lg hover:bg-indigo-700 transition"
         >
           Explore Catalog
-        </a>
+        </Link>
       </section>
 
       {/* Latest Books Section */}

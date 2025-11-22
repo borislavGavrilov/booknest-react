@@ -1,3 +1,5 @@
+import { Link } from "react-router";
+
 export default function BookCard({
   date,
   genre,
@@ -17,12 +19,12 @@ export default function BookCard({
           <h3 className="text-xl font-semibold text-gray-800">{title}</h3>
           <p className="text-gray-600">{genre}</p>
           <p className="text-gray-500">{pages}</p>
-          <a
-            href="/details/1a2b3c4d-5e6f-7g8h-9i0j-1k2l3m4n5o6p"
+          <Link
+            to={`/catalog/${_id}/details`}
             className="mt-3 inline-block text-indigo-600 hover:underline"
           >
             View Details
-          </a>
+          </Link>
         </div>
       </div>
     </>
