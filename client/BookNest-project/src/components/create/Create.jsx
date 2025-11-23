@@ -1,9 +1,24 @@
+import { useNavigate } from "react-router";
+
 export default function Create() {
-  function onSubmitHandler(params) {
+  const navigate = useNavigate();
+  async function onSubmitHandler(params) {
     params.preventDefault();
     const formData = new FormData(params.target);
     const data = Object.fromEntries(formData);
-    console.log(data);
+
+    data._createdOn = new Date();
+
+    const result = await fetch("http://localhost:3030/jsonstore/games", {
+      method: "POST",
+      headers: { "content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+
+    const response = await result.json();
+    console.log(response);
+
+    navigate("/catalog");
   }
   return (
     <>
