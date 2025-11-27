@@ -1,11 +1,26 @@
-export default function Login() {
+import { useNavigate } from "react-router";
+
+export default function Login({ onRegister }) {
+  const navigate = useNavigate();
+  function handleSubmit(formData) {
+    const email = formData.get("email");
+    const password = formData.get("password");
+
+    //Set user as logged in
+    onRegister({ email, password });
+
+    navigate("/");
+  }
   return (
     <section className="max-w-md mx-auto mt-24 px-4">
       <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">
         Login
       </h2>
 
-      <form className="flex flex-col gap-4 bg-white p-6 rounded-xl shadow-md">
+      <form
+        className="flex flex-col gap-4 bg-white p-6 rounded-xl shadow-md"
+        action={handleSubmit}
+      >
         <div className="flex flex-col text-left">
           <label className="font-medium text-gray-700 mb-1">Email</label>
           <input

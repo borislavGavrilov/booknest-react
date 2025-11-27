@@ -7,8 +7,15 @@ import Create from "./components/create/Create";
 import Login from "./components/login/Login";
 import Register from "./components/register/Register";
 import { Route, Routes } from "react-router";
+import { useState } from "react";
 
 function App() {
+  const [user, setUser] = useState(null);
+
+  function authnUser(userData) {
+    setUser({ userData });
+  }
+
   return (
     <>
       <Header />
@@ -17,8 +24,11 @@ function App() {
         <Route path="/catalog" element={<Catalog />} />
         <Route path="/catalog/:bookId/details" element={<Details />} />
         <Route path="/create" element={<Create />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+        <Route
+          path="/login"
+          element={<Login user={user} onLogin={authnUser} />}
+        />
+        <Route path="/register" element={<Register onRegister={authnUser} />} />
       </Routes>
 
       <Footer />

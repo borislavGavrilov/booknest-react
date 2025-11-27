@@ -1,11 +1,30 @@
-export default function Register() {
+import { useNavigate } from "react-router";
+
+export default function Register({ onRegister }) {
+  const redirectTo = useNavigate();
+  function handleSubmit(formData) {
+    const email = formData.get("email");
+    const password = formData.get("password");
+    const repass = formData.get("repass");
+
+    //TODO: Add validation
+
+    //Set user as registered
+    onRegister({ email, password });
+
+    //Redirect to home page
+    redirectTo("/login");
+  }
   return (
     <section className="max-w-md mx-auto mt-24 px-4">
       <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">
         Register
       </h2>
 
-      <form className="flex flex-col gap-4 bg-white p-6 rounded-xl shadow-md">
+      <form
+        className="flex flex-col gap-4 bg-white p-6 rounded-xl shadow-md"
+        action={handleSubmit}
+      >
         <div className="flex flex-col text-left">
           <label className="font-medium text-gray-700 mb-1">Email</label>
           <input
