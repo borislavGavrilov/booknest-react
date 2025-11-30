@@ -1,13 +1,15 @@
 import { useNavigate } from "react-router";
 
-export default function Login({ onRegister }) {
+export default function Login({ onLogin }) {
   const navigate = useNavigate();
   function handleSubmit(formData) {
     const email = formData.get("email");
     const password = formData.get("password");
 
     //Set user as logged in
-    onRegister({ email, password });
+    onLogin({ email, password });
+
+    console.log(email, password);
 
     navigate("/");
   }

@@ -41,12 +41,12 @@ export default function Details(props) {
 
             {/* Action buttons */}
             <div className="flex gap-4 mb-6">
-              <button
-                onClick={() => alert("Edit book functionality")}
+              <Link
+                to={`/catalog/${bookId}/edit`}
                 className="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600 transition"
               >
                 Edit
-              </button>
+              </Link>
               <button
                 onClick={() => alert("Delete book functionality")}
                 className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition"

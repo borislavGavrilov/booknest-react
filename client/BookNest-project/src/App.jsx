@@ -8,6 +8,7 @@ import Login from "./components/login/Login";
 import Register from "./components/register/Register";
 import { Route, Routes } from "react-router";
 import { useState } from "react";
+import Edit from "./components/edit/Edit";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -23,6 +24,8 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/catalog" element={<Catalog />} />
         <Route path="/catalog/:bookId/details" element={<Details />} />
+        <Route path="/catalog/:bookId/edit" element={<Edit />} />
+
         <Route path="/create" element={<Create />} />
         <Route
           path="/login"
