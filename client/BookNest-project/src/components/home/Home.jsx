@@ -6,7 +6,7 @@ export default function Home() {
   const [latestBooks, setLatestBooks] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:3030/jsonstore/games")
+    fetch("http://localhost:3030/jsonstore/books")
       .then((res) => res.json())
       .then((data) => {
         const booksArray = Object.values(data);

@@ -5,7 +5,6 @@ export default function Register({ onRegister }) {
   function handleSubmit(formData) {
     const email = formData.get("email");
     const password = formData.get("password");
-    const repass = formData.get("repass");
 
     //TODO: Add validation
 
@@ -13,7 +12,7 @@ export default function Register({ onRegister }) {
     onRegister({ email, password });
 
     //Redirect to home page
-    redirectTo("/login");
+    redirectTo("/");
   }
   return (
     <section className="max-w-md mx-auto mt-24 px-4">

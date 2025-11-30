@@ -7,7 +7,7 @@ export default function Details(props) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`http://localhost:3030/jsonstore/games/${bookId}`)
+    fetch(`http://localhost:3030/jsonstore/books/${bookId}`)
       .then((res) => res.json())
       .then((data) => {
         setBook(data);
