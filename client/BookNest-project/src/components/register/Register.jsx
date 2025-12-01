@@ -4,12 +4,31 @@ import UserContext from "../../context/userContext";
 export default function Register() {
   const { onRegister } = useContext(UserContext);
 
-  function handleSubmit(formData) {
+  function onHandleSubmit(formData) {
     const email = formData.get("email");
     const password = formData.get("password");
+    const rePass = formData.get("repass");
 
     //TODO: Add validation
+    if (!email) {
+      alert("Email is required");
+      return;
+    }
 
+    if (!password) {
+      alert("Password is required");
+      return;
+    }
+
+    if (!rePass) {
+      alert("Repeat Password is required");
+      return;
+    }
+
+    if (rePass !== password) {
+      alert("Password doesnt match with Repassword");
+      return;
+    }
     //Set user as registered
     onRegister({ email, password });
   }
@@ -21,7 +40,7 @@ export default function Register() {
 
       <form
         className="flex flex-col gap-4 bg-white p-6 rounded-xl shadow-md"
-        action={handleSubmit}
+        action={onHandleSubmit}
       >
         <div className="flex flex-col text-left">
           <label className="font-medium text-gray-700 mb-1">Email</label>
@@ -30,7 +49,6 @@ export default function Register() {
             name="email"
             className="border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-indigo-400 focus:border-indigo-400 outline-none"
             placeholder="Your email"
-            required
           />
         </div>
 
@@ -41,7 +59,6 @@ export default function Register() {
             name="password"
             className="border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-indigo-400 focus:border-indigo-400 outline-none"
             placeholder="Your password"
-            required
           />
         </div>
 
@@ -54,7 +71,6 @@ export default function Register() {
             name="repass"
             className="border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-indigo-400 focus:border-indigo-400 outline-none"
             placeholder="Repeat password"
-            required
           />
         </div>
 
