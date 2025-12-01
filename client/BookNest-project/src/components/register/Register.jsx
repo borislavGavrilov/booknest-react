@@ -1,7 +1,9 @@
-import { useNavigate } from "react-router";
+import { useContext } from "react";
+import UserContext from "../../context/userContext";
 
-export default function Register({ onRegister }) {
-  const redirectTo = useNavigate();
+export default function Register() {
+  const { onRegister } = useContext(UserContext);
+
   function handleSubmit(formData) {
     const email = formData.get("email");
     const password = formData.get("password");
@@ -10,9 +12,6 @@ export default function Register({ onRegister }) {
 
     //Set user as registered
     onRegister({ email, password });
-
-    //Redirect to home page
-    redirectTo("/");
   }
   return (
     <section className="max-w-md mx-auto mt-24 px-4">

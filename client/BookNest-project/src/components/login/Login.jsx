@@ -1,7 +1,4 @@
-import { useNavigate } from "react-router";
-
 export default function Login({ onLogin }) {
-  const navigate = useNavigate();
   function handleSubmit(formData) {
     const email = formData.get("email");
     const password = formData.get("password");
@@ -10,8 +7,6 @@ export default function Login({ onLogin }) {
     onLogin({ email, password });
 
     console.log(email, password);
-
-    navigate("/");
   }
   return (
     <section className="max-w-md mx-auto mt-24 px-4">
