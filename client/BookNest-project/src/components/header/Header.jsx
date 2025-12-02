@@ -23,6 +23,9 @@ export default function Header() {
           <Link to="/login" className="hover:text-indigo-600 transition">
             Login
           </Link>
+          <Link to="/logout" className="hover:text-indigo-600 transition">
+            Logout
+          </Link>
           <Link to="/register" className="hover:text-indigo-600 transition">
             Register
           </Link>
