@@ -1,4 +1,8 @@
-export default function Login({ onLogin }) {
+import { useContext } from "react";
+import UserContext from "../../context/userContext";
+
+export default function Login() {
+  const { onLogin } = useContext(UserContext);
   function handleSubmit(formData) {
     const email = formData.get("email");
     const password = formData.get("password");
