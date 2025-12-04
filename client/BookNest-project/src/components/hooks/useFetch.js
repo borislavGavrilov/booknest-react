@@ -1,32 +1,38 @@
+import { useContext } from "react";
+import UserContext from "../../context/userContext";
+
 const baseUrl = "http://localhost:3030";
 
 export default function useFetch() {
-  const request = async (url, method, data) => {
-    let options = {};
+  const { user, isAuthendicated } = useContext(UserContext);
 
-    if (method) {
-      options.method = method;
-    }
+  const request = async (url, method = "GET", data = null, config = {}) => {
+    const options = {
+      method,
+      headers: {},
+    };
 
     if (data) {
-      options.headers = {
-        "content-type": "application/json",
-      };
+      options.headers["Content-Type"] = "application/json";
       options.body = JSON.stringify(data);
+    }
+
+    const token = config.accessToken || (isAuthendicated && user?.accessToken);
+
+    if (token) {
+      options.headers["X-Authorization"] = token;
     }
 
     const response = await fetch(`${baseUrl}${url}`, options);
 
+    if (response.status === 204) return null;
+
     if (!response.ok) {
-      alert("Problem in request");
-      return;
+      throw new Error("Request failed");
     }
 
-    const result = await response.json();
+    return response.json();
+  };
 
-    return result;
-  };
-  return {
-    request,
-  };
+  return { request };
 }

@@ -9,8 +9,6 @@ export default function Login() {
 
     //Set user as logged in
     onLogin({ email, password });
-
-    console.log(email, password);
   }
   return (
     <section className="max-w-md mx-auto mt-24 px-4">
