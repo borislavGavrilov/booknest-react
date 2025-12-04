@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
-import { useNavigate, useParams, Link } from "react-router";
+import { useContext, useEffect, useState } from "react";
+import { useParams, Link } from "react-router";
+import UserContext from "../../context/userContext";
 
-export default function Details(props) {
+export default function Details() {
   const { bookId } = useParams();
   const [book, setBook] = useState(null);
-  const navigate = useNavigate();
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
     fetch(`http://localhost:3030/jsonstore/books/${bookId}`)
@@ -40,26 +41,31 @@ export default function Details(props) {
             <p className="text-gray-700 mb-6">{book?.summary}</p>
 
             {/* Action buttons */}
-            <div className="flex gap-4 mb-6">
-              <Link
-                to={`/catalog/${bookId}/edit`}
-                className="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600 transition"
-              >
-                Edit
-              </Link>
-              <button
-                onClick={() => alert("Delete book functionality")}
-                className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition"
-              >
-                Delete
-              </button>
-              <button
-                onClick={() => alert("Liked!")}
-                className="bg-indigo-500 text-white px-4 py-2 rounded hover:bg-indigo-600 transition"
-              >
-                Like ❤️
-              </button>
-            </div>
+
+            {user ? (
+              <div className="flex gap-4 mb-6">
+                <Link
+                  to={`/catalog/${bookId}/edit`}
+                  className="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600 transition"
+                >
+                  Edit
+                </Link>
+                <button
+                  onClick={() => alert("Delete book functionality")}
+                  className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition"
+                >
+                  Delete
+                </button>
+                <button
+                  onClick={() => alert("Liked!")}
+                  className="bg-indigo-500 text-white px-4 py-2 rounded hover:bg-indigo-600 transition"
+                >
+                  Like ❤️
+                </button>
+              </div>
+            ) : (
+              ""
+            )}
 
             <Link
               to="/catalog"

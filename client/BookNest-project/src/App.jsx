@@ -7,7 +7,6 @@ import Create from "./components/create/Create";
 import Login from "./components/login/Login";
 import Register from "./components/register/Register";
 import { Route, Routes } from "react-router";
-import { useContext } from "react";
 import Edit from "./components/edit/Edit";
 import UserContext, { UserProvider } from "./context/userContext";
 import Logout from "./components/logout/logout";

@@ -36,11 +36,11 @@ export function UserProvider({ children }) {
     redirectTo("/");
   }
 
-  function onLogout() {
+  async function onLogout() {
     const token = user?.accessToken;
     return request("/users/logout", "GET", null, {
       accessToken: token,
-    }).finally(setUser(null));
+    }).finally(() => setUser(null));
   }
 
   const UserContextValues = {

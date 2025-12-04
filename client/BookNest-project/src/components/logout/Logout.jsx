@@ -13,7 +13,7 @@ export default function Logout() {
         alert("Logout Problem");
         navigate("/");
       });
-  }, []);
+  }, [navigate]);
 
   return null;
 }
