@@ -1,11 +1,15 @@
 import { useContext, useEffect, useState } from "react";
 import { useParams, Link } from "react-router";
 import UserContext from "../../context/userContext";
+import useFetch from "../hooks/useFetch";
+import { useNavigate } from "react-router";
 
 export default function Details() {
   const { bookId } = useParams();
   const [book, setBook] = useState(null);
   const { user } = useContext(UserContext);
+  const { request } = useFetch();
+  const redirect = useNavigate();
 
   useEffect(() => {
     fetch(`http://localhost:3030/data/books/${bookId}`)
@@ -21,6 +25,17 @@ export default function Details() {
       </div>
     );
   }
+
+  const deleteBookHandler = async () => {
+    alert("Are you sure you want to delete this book? ");
+
+    try {
+      await request(`/data/books/${bookId}`, "DELETE");
+      redirect("/catalog");
+    } catch (error) {
+      alert("Cant delete this booj", error.message);
+    }
+  };
 
   return (
     <section className="max-w-4xl mx-auto mt-20 px-4">
@@ -63,7 +78,7 @@ export default function Details() {
                 Edit
               </Link>
               <button
-                onClick={() => alert("Delete book functionality")}
+                onClick={deleteBookHandler}
                 className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition"
               >
                 Delete
