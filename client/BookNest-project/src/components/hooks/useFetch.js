@@ -37,7 +37,6 @@ export default function useFetch() {
         throw new Error(`Request failed: ${response.status}`);
       }
 
-      // Normal JSON response
       return await response.json();
     } catch (err) {
       console.log(err);

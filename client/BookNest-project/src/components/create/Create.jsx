@@ -5,9 +5,7 @@ export default function Create() {
   const navigate = useNavigate();
   const { request } = useFetch();
 
-  async function onSubmitHandler(event) {
-    event.preventDefault();
-    const formData = new FormData(event.target);
+  async function onSubmitHandler(formData) {
     const data = Object.fromEntries(formData);
 
     data._createdOn = new Date();
@@ -24,7 +22,7 @@ export default function Create() {
       </h2>
 
       <form
-        onSubmit={onSubmitHandler}
+        action={onSubmitHandler}
         className="bg-white p-8 rounded-2xl shadow-lg flex flex-col gap-6"
       >
         {/* Title */}
