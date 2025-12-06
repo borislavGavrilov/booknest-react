@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router";
+import useFetch from "../hooks/useFetch";
 const initialValues = {
   title: "",
   author: "",
@@ -13,6 +14,7 @@ export default function Edit() {
   const { bookId } = useParams();
   const [values, setValues] = useState(initialValues);
   const navigate = useNavigate();
+  const { request } = useFetch();
 
   const changeHandler = (e) => {
     setValues((state) => ({
@@ -28,18 +30,12 @@ export default function Edit() {
   }, [bookId, setValues]);
 
   async function submitHandler() {
-    const request = await fetch(
-      `http://localhost:3030/jsonstore/books/${bookId}`,
-      {
-        method: "PUT",
-        headers: {
-          "content-Type": "application/json",
-        },
-        body: JSON.stringify(values),
-      }
-    );
-
-    navigate("/catalog");
+    try {
+      request(`/data/books/${bookId}`, "PUT", values);
+      navigate("/catalog");
+    } catch (error) {
+      alert(error.message);
+    }
   }
 
   return (
@@ -170,7 +166,7 @@ export default function Edit() {
             type="submit"
             className="bg-indigo-600 text-white px-6 py-3 rounded-2xl hover:bg-indigo-700 transition font-semibold shadow-md"
           >
-            Add Book
+            Edit Book
           </button>
         </form>
       </section>
