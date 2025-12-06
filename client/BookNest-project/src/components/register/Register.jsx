@@ -4,79 +4,83 @@ import UserContext from "../../context/userContext";
 export default function Register() {
   const { onRegister } = useContext(UserContext);
 
-  function onHandleSubmit(formData) {
+  function handleSubmit(formData) {
     const email = formData.get("email");
     const password = formData.get("password");
     const rePass = formData.get("repass");
 
-    //TODO: Add validation
-    if (!email) {
-      alert("Email is required");
+    if (!email || !password || !rePass) {
+      alert("All fields are required!");
       return;
     }
 
-    if (!password) {
-      alert("Password is required");
+    if (password !== rePass) {
+      alert("Passwords do not match!");
       return;
     }
 
-    if (!rePass) {
-      alert("Repeat Password is required");
-      return;
-    }
-
-    if (rePass !== password) {
-      alert("Password doesnt match with Repassword");
-      return;
-    }
-    //Set user as registered
     onRegister({ email, password });
   }
+
   return (
     <section className="max-w-md mx-auto mt-24 px-4">
-      <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">
+      <h2 className="text-3xl font-extrabold text-gray-800 mb-8 text-center">
         Register
       </h2>
 
       <form
-        className="flex flex-col gap-4 bg-white p-6 rounded-xl shadow-md"
-        action={onHandleSubmit}
+        action={handleSubmit}
+        className="flex flex-col gap-6 bg-white p-8 rounded-2xl shadow-lg"
       >
-        <div className="flex flex-col text-left">
-          <label className="font-medium text-gray-700 mb-1">Email</label>
+        {/* Email */}
+        <div className="flex flex-col">
+          <label htmlFor="email" className="mb-1 text-gray-600 font-medium">
+            Email
+          </label>
           <input
             type="email"
+            id="email"
             name="email"
-            className="border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-indigo-400 focus:border-indigo-400 outline-none"
-            placeholder="Your email"
+            placeholder="Enter your email"
+            className="border border-gray-300 p-3 rounded-xl focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-300 transition"
+            required
           />
         </div>
 
-        <div className="flex flex-col text-left">
-          <label className="font-medium text-gray-700 mb-1">Password</label>
+        {/* Password */}
+        <div className="flex flex-col">
+          <label htmlFor="password" className="mb-1 text-gray-600 font-medium">
+            Password
+          </label>
           <input
             type="password"
+            id="password"
             name="password"
-            className="border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-indigo-400 focus:border-indigo-400 outline-none"
-            placeholder="Your password"
+            placeholder="Enter your password"
+            className="border border-gray-300 p-3 rounded-xl focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-300 transition"
+            required
           />
         </div>
 
-        <div className="flex flex-col text-left">
-          <label className="font-medium text-gray-700 mb-1">
+        {/* Repeat Password */}
+        <div className="flex flex-col">
+          <label htmlFor="repass" className="mb-1 text-gray-600 font-medium">
             Repeat Password
           </label>
           <input
             type="password"
+            id="repass"
             name="repass"
-            className="border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-indigo-400 focus:border-indigo-400 outline-none"
-            placeholder="Repeat password"
+            placeholder="Repeat your password"
+            className="border border-gray-300 p-3 rounded-xl focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-300 transition"
+            required
           />
         </div>
 
+        {/* Submit */}
         <button
           type="submit"
-          className="bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700 transition"
+          className="bg-green-600 text-white px-6 py-3 rounded-2xl hover:bg-green-700 transition font-semibold shadow-md"
         >
           Register
         </button>

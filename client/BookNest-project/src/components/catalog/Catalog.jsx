@@ -1,30 +1,40 @@
 import { useEffect, useState } from "react";
 import BookCard from "../bookCard/BookCard";
+import useFetch from "../hooks/useFetch";
 
 export default function Catalog() {
   const [books, setBooks] = useState([]);
+  const { request } = useFetch();
 
   useEffect(() => {
-    fetch("http://localhost:3030/jsonstore/books")
-      .then((res) => res.json())
-      .then((data) => {
-        const booksArray = Object.values(data);
-        setBooks(booksArray);
+    request("/data/books")
+      .then((result) => {
+        if (!result) {
+          setBooks([]);
+          return;
+        }
+        setBooks(result);
       })
-      .catch((err) => console.error("Error fetching books:", err));
+      .catch((err) => alert(err));
   }, []);
 
   return (
-    <section className="max-w-6xl mx-auto mt-10 px-4">
-      <h2 className="text-3xl font-bold text-indigo-700 mb-6">Book Catalog</h2>
+    <section className="max-w-6xl mx-auto mt-12 px-4">
+      <h2 className="text-3xl font-bold text-green-600 mb-8 text-center">
+        Explore Our Book Collection
+      </h2>
 
-      <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
-        {/* Статична книга */}
-
-        {books.map((book) => (
-          <BookCard key={book._id} {...book} />
-        ))}
-      </div>
+      {books.length === 0 ? (
+        <div className="text-center mt-20 text-gray-500 text-xl">
+          There are no books added yet.
+        </div>
+      ) : (
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+          {books.map((book) => (
+            <BookCard key={book._id} {...book} />
+          ))}
+        </div>
+      )}
     </section>
   );
 }

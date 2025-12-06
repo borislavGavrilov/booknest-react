@@ -8,74 +8,83 @@ export default function Details() {
   const { user } = useContext(UserContext);
 
   useEffect(() => {
-    fetch(`http://localhost:3030/jsonstore/books/${bookId}`)
+    fetch(`http://localhost:3030/data/books/${bookId}`)
       .then((res) => res.json())
-      .then((data) => {
-        setBook(data);
-      })
+      .then((data) => setBook(data))
       .catch((err) => console.error("Error fetching book details:", err));
   }, [bookId]);
 
+  if (!book) {
+    return (
+      <div className="text-center mt-20 text-gray-600 text-xl">
+        Loading book details...
+      </div>
+    );
+  }
+
   return (
-    <>
-      <section className="max-w-4xl mx-auto mt-20 px-4">
-        <div className="flex flex-col md:flex-row gap-8">
+    <section className="max-w-4xl mx-auto mt-20 px-4">
+      <div className="flex flex-col md:flex-row gap-8">
+        {/* Book Image */}
+        <div className="w-full md:w-1/3 flex justify-center items-center bg-gray-100 rounded-lg shadow-lg overflow-hidden">
           <img
-            src={book?.imageUrl}
-            alt={book?.title}
-            className="w-full md:w-1/3 h-auto object-cover rounded-lg shadow-md"
+            src={book.imageUrl}
+            alt={book.title}
+            className="w-full h-auto max-h-96 object-contain transition-transform duration-300 hover:scale-105"
           />
-          <div className="flex-1">
+        </div>
+
+        <div className="flex-1 flex flex-col justify-between">
+          <div>
             <h2 className="text-3xl font-bold text-gray-800 mb-4">
-              {book?.title}
+              {book.title}
             </h2>
             <p className="text-gray-600 mb-2">
-              <strong>Genre:</strong> {book?.genre}
+              <strong>Genre:</strong> {book.genre}
             </p>
             <p className="text-gray-600 mb-2">
-              <strong>Pages:</strong> {book?.pages}
+              <strong>Pages:</strong> {book.pages}
+            </p>
+            <p className="text-gray-600 mb-2">
+              <strong>Published:</strong> {book.date}
             </p>
             <p className="text-gray-600 mb-4">
-              <strong>Published:</strong> {book?.date}
+              <strong>Author:</strong> {book.author}
             </p>
-            <p className="text-gray-700 mb-6">{book?.summary}</p>
-
-            {/* Action buttons */}
-
-            {user ? (
-              <div className="flex gap-4 mb-6">
-                <Link
-                  to={`/catalog/${bookId}/edit`}
-                  className="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600 transition"
-                >
-                  Edit
-                </Link>
-                <button
-                  onClick={() => alert("Delete book functionality")}
-                  className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition"
-                >
-                  Delete
-                </button>
-                <button
-                  onClick={() => alert("Liked!")}
-                  className="bg-indigo-500 text-white px-4 py-2 rounded hover:bg-indigo-600 transition"
-                >
-                  Like ❤️
-                </button>
-              </div>
-            ) : (
-              ""
-            )}
-
-            <Link
-              to="/catalog"
-              className="inline-block text-indigo-600 hover:underline"
-            >
-              Back to Catalog
-            </Link>
+            <p className="text-gray-700 mb-6">{book.summary}</p>
           </div>
+
+          {user && (
+            <div className="flex flex-wrap gap-4 mb-6">
+              <Link
+                to={`/catalog/${bookId}/edit`}
+                className="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600 transition"
+              >
+                Edit
+              </Link>
+              <button
+                onClick={() => alert("Delete book functionality")}
+                className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition"
+              >
+                Delete
+              </button>
+              <button
+                onClick={() => alert("Liked!")}
+                className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition"
+              >
+                Like ❤️
+              </button>
+            </div>
+          )}
+
+          <Link
+            to="/catalog"
+            className="inline-block text-green-600 hover:underline font-medium"
+          >
+            &larr; Back to Catalog
+          </Link>
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
 }

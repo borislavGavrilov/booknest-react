@@ -24,6 +24,11 @@ export function UserProvider({ children }) {
   async function onRegister(newUser) {
     const result = await request("/users/register", "POST", newUser);
 
+    if (!result) {
+      alert("A user with the same email already exists");
+      return;
+    }
+
     setUser(result);
     redirectTo("/login");
   }
@@ -31,6 +36,10 @@ export function UserProvider({ children }) {
   async function onLogin(email, password) {
     const result = await request("/users/login", "POST", email, password);
 
+    if (!result) {
+      alert("Email or Password doesn't match !");
+      return;
+    }
     setUser(result);
 
     redirectTo("/");

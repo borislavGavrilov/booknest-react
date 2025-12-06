@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router";
 const initialValues = {
   title: "",
+  author: "",
   genre: "",
   pages: "",
   date: "",
@@ -21,7 +22,7 @@ export default function Edit() {
   };
 
   useEffect(() => {
-    fetch(`http://localhost:3030/jsonstore/books/${bookId}`)
+    fetch(`http://localhost:3030/data/books/${bookId}`)
       .then((response) => response.json())
       .then((data) => setValues(data));
   }, [bookId, setValues]);
@@ -63,6 +64,22 @@ export default function Edit() {
               onChange={changeHandler}
               placeholder="Enter book title"
               className="border border-gray-300 p-3 rounded-xl focus:outline-none focus:border-indigo-500 focus:shadow-md transition"
+              required
+            />
+          </div>
+
+          <div className="flex flex-col">
+            <label htmlFor="author" className="mb-1 text-gray-600 font-medium">
+              Author
+            </label>
+            <input
+              type="text"
+              id="author"
+              name="author"
+              value={values.author || ""}
+              onChange={changeHandler}
+              placeholder="Enter author name"
+              className="border border-gray-300 p-3 rounded-xl focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-300 transition"
               required
             />
           </div>
