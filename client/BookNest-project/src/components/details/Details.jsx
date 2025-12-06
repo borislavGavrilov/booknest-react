@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { use, useContext, useEffect, useState } from "react";
 import { useParams, Link } from "react-router";
 import UserContext from "../../context/userContext";
 import useFetch from "../hooks/useFetch";
@@ -71,24 +71,29 @@ export default function Details() {
 
           {user && (
             <div className="flex flex-wrap gap-4 mb-6">
-              <Link
-                to={`/catalog/${bookId}/edit`}
-                className="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600 transition"
-              >
-                Edit
-              </Link>
-              <button
-                onClick={deleteBookHandler}
-                className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition"
-              >
-                Delete
-              </button>
-              <button
-                onClick={() => alert("Liked!")}
-                className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition"
-              >
-                Like ❤️
-              </button>
+              {user._id === book._ownerId ? (
+                <>
+                  <Link
+                    to={`/catalog/${bookId}/edit`}
+                    className="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600 transition"
+                  >
+                    Edit
+                  </Link>
+                  <button
+                    onClick={deleteBookHandler}
+                    className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition"
+                  >
+                    Delete
+                  </button>
+                </>
+              ) : (
+                <button
+                  onClick={() => alert("Liked!")}
+                  className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition"
+                >
+                  Like ❤️
+                </button>
+              )}
             </div>
           )}
 
