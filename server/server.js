@@ -1425,12 +1425,7 @@
   var protectedData = {
     users: {
       "35c62d76-8152-4626-8712-eeb96381bea8": {
-        email: "peter@abv.bg",
-        hashedPassword:
-          "83313014ed3e2391aa1332615d2f053cf5c1bfe05ca1cbcb5582443822df6eb1",
-      },
-      "847ec027-f659-4086-8032-5173e2f9c93a": {
-        email: "john@abv.bg",
+        email: "bobi99@gmail.com",
         hashedPassword:
           "83313014ed3e2391aa1332615d2f053cf5c1bfe05ca1cbcb5582443822df6eb1",
       },
@@ -1438,53 +1433,37 @@
     sessions: {},
   };
   var seedData = {
-    games: {
-      "5c7d8f0e-3a9b-4c2d-9e1f-6a4b3c8d2e7a": {
+    books: {
+      "1a2b3c4d-5e6f-7g8h-9i0j-1k2l3m4n5o6p": {
+        _id: "1a2b3c4d-5e6f-7g8h-9i0j-1k2l3m4n5o6p",
         _ownerId: "35c62d76-8152-4626-8712-eeb96381bea8",
-        title: "The Witcher 3",
-        genre: "Open World",
-        players: 32000,
-        date: "2015-05-19",
-        imageUrl: "/images/witcher.png",
+        title: "A Game of Thrones",
+        genre: "Epic Fantasy",
+        pages: 694,
+        date: "1996-08-06",
+        author: "George R.R. Martin",
+        imageUrl:
+          "data:image/jpeg;base64,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",
         summary:
-          "A story-driven, open world fantasy RPG. Play as Geralt of Rivia, a monster slayer for hire, who must find the Child of Prophecy in a vast, war-torn world. The game is known for its morally gray choices, mature storyline, and expansive world exploration.",
-        _createdOn: 1617194350000,
+          "The first book in the A Song of Ice and Fire series. Noble families vie for control of the Iron Throne while dark forces stir beyond the Wall.",
+        _createdOn: 1617194400000,
       },
-      "7b9a2c4f-1d5e-4b6c-8a3d-2f1e0g3h4i5j": {
-        _ownerId: "847ec027-f659-4086-8032-5173e2f9c93a",
-        title: "Elden Ring",
-        genre: "Action RPG",
-        players: 105000,
-        date: "2022-02-25",
-        imageUrl: "/images/elden ring.png",
-        summary:
-          "A monumental fantasy action RPG developed by FromSoftware and Bandai Namco. Set in the Lands Between, players embark on an epic quest to become the Elden Lord, exploring a vast open world designed by Hidetaka Miyazaki, with worldbuilding contributed by fantasy author George R. R. Martin.",
-        _createdOn: 1645708800000,
-      },
-      "3d4e5f6g-7h8i-9j0k-1l2m-3n4o5p6q7r8s": {
+      "3c4d5e6f-7g8h-9i0j-1k2l-3m4n5o6p7q8r": {
+        _id: "3c4d5e6f-7g8h-9i0j-1k2l-3m4n5o6p7q8r",
         _ownerId: "35c62d76-8152-4626-8712-eeb96381bea8",
-        title: "Minecraft",
-        genre: "Sandbox",
-        players: 1400000,
-        date: "2011-11-18",
-        imageUrl: "/images/minecraft.png",
+        title: "The Winds of Winter",
+        genre: "Epic Fantasy",
+        pages: 1024,
+        date: "2025-12-01",
+        author: "George R.R. Martin",
+        imageUrl:
+          "https://static0.thegamerimages.com/wordpress/wp-content/uploads/wm/2025/04/game-of-thrones-winds-of-winter-book-over-the-iron-throne.jpg?w=1600&h=1200&fit=crop",
         summary:
-          "Minecraft is a sandbox video game where players explore a blocky, procedurally generated 3D world with infinite terrain. Players may discover and extract raw materials, craft tools and items, and build structures, earthworks and simple machines.",
-        _createdOn: 1617194450000,
-      },
-      "9f8e7d6c-5b4a-3c2d-1e0f-9g8h7i6j5k4l": {
-        _ownerId: "847ec027-f659-4086-8032-5173e2f9c93a",
-        title: "Cyberpunk 2077",
-        genre: "Action RPG",
-        players: 85000,
-        date: "2020-12-10",
-        imageUrl: "/images/cyberpunk.png",
-        summary:
-          "An open-world, action-adventure story set in Night City, a megalopolis obsessed with power, glamour and body modification. You play as V, a mercenary outlaw going after a one-of-a-kind implant that is the key to immortality.",
-        _createdOn: 1607558400000,
+          "The anticipated next book in the A Song of Ice and Fire series, continuing the story of Westeros and its battle for the Iron Throne.",
+        _createdOn: 1733587200000,
       },
     },
-    comments: {},
+    likes: {},
   };
   var rules$1 = {
     users: {

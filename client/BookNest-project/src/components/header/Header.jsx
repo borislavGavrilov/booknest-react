@@ -14,7 +14,7 @@ export default function Header() {
           BookNest
         </Link>
 
-        <div className="flex gap-6 text-gray-700 items-center flex-wrap md:flex-nowrap">
+        <div className="flex items-center gap-6 text-gray-700 flex-wrap md:flex-nowrap">
           <Link to="/" className={navLinkClass}>
             Home
           </Link>
@@ -27,9 +27,17 @@ export default function Header() {
               <Link to="/create" className={navLinkClass}>
                 Add Book
               </Link>
+
               <Link to="/logout" className={navLinkClass}>
                 Logout
               </Link>
+
+              <div className="flex items-center gap-2 bg-green-100 px-3 py-1 rounded-full shadow-sm border border-green-300 animate-fadeIn">
+                <span className="text-green-700 font-medium text-sm">
+                  {user.email}
+                </span>
+                <span className="text-green-600 text-lg">📚</span>
+              </div>
             </>
           ) : (
             <>
