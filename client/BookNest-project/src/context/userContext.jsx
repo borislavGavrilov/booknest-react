@@ -29,7 +29,6 @@ export function UserProvider({ children }) {
       return;
     }
 
-    setUser(result);
     redirectTo("/login");
   }
 

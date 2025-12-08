@@ -1,4 +1,4 @@
-import { use, useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams, Link } from "react-router";
 import UserContext from "../../context/userContext";
 import useFetch from "../hooks/useFetch";
@@ -7,6 +7,7 @@ import { useNavigate } from "react-router";
 export default function Details() {
   const { bookId } = useParams();
   const [book, setBook] = useState(null);
+  const [likes, setLikes] = useState({});
   const { user } = useContext(UserContext);
   const { request } = useFetch();
   const redirect = useNavigate();
@@ -36,6 +37,10 @@ export default function Details() {
       alert("Cant delete this booj", error.message);
     }
   };
+
+  function likesHandler() {
+    console.log("youdidi");
+  }
 
   return (
     <section className="max-w-4xl mx-auto mt-20 px-4">
@@ -88,7 +93,7 @@ export default function Details() {
                 </>
               ) : (
                 <button
-                  onClick={() => alert("Liked!")}
+                  onClick={likesHandler}
                   className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition"
                 >
                   Like ❤️

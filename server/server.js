@@ -1463,7 +1463,10 @@
         _createdOn: 1733587200000,
       },
     },
-    likes: {},
+    likes: {
+      bookId: "1a2b3c4d-5e6f-7g8h-9i0j-1k2l3m4n5o6p",
+      ownerId: "35c62d76-8152-4626-8712-eeb96381bea8",
+    },
   };
   var rules$1 = {
     users: {
