@@ -8,7 +8,6 @@ export default function Login() {
     const email = formData.get("email");
     const password = formData.get("password");
 
-    // Set user as logged in
     onLogin({ email, password });
   }
 
@@ -22,7 +21,6 @@ export default function Login() {
         action={handleSubmit}
         className="flex flex-col gap-6 bg-white p-8 rounded-2xl shadow-lg"
       >
-        {/* Email */}
         <div className="flex flex-col">
           <label htmlFor="email" className="mb-1 text-gray-600 font-medium">
             Email
@@ -37,7 +35,6 @@ export default function Login() {
           />
         </div>
 
-        {/* Password */}
         <div className="flex flex-col">
           <label htmlFor="password" className="mb-1 text-gray-600 font-medium">
             Password
@@ -52,7 +49,6 @@ export default function Login() {
           />
         </div>
 
-        {/* Submit */}
         <button
           type="submit"
           className="bg-green-600 text-white px-6 py-3 rounded-2xl hover:bg-green-700 transition font-semibold shadow-md"

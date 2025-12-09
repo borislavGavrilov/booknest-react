@@ -20,7 +20,6 @@ export default function Home() {
         </Link>
       </section>
 
-      {/* Optional Featured Section */}
       <section className="mt-16 px-6 max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
         <div className="bg-white rounded-xl shadow-md p-6 hover:shadow-xl transition">
           <h3 className="text-xl font-semibold mb-2 text-gray-800">

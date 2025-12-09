@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router";
 import useFetch from "../hooks/useFetch";
+import useForm from "../hooks/useForm";
 const initialValues = {
   title: "",
   author: "",
@@ -12,16 +13,13 @@ const initialValues = {
 };
 export default function Edit() {
   const { bookId } = useParams();
-  const [values, setValues] = useState(initialValues);
   const navigate = useNavigate();
   const { request } = useFetch();
 
-  const changeHandler = (e) => {
-    setValues((state) => ({
-      ...state,
-      [e.target.name]: e.target.value,
-    }));
-  };
+  const { values, setValues, changeHandler } = useForm(
+    submitHandler,
+    initialValues
+  );
 
   useEffect(() => {
     fetch(`http://localhost:3030/data/books/${bookId}`)
