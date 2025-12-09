@@ -1,7 +1,8 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import useFetch from "../hooks/useFetch";
 import useForm from "../hooks/useForm";
+import validate from "../utils/validationUtils.js";
 const initialValues = {
   title: "",
   author: "",
@@ -13,12 +14,14 @@ const initialValues = {
 };
 export default function Edit() {
   const { bookId } = useParams();
-  const navigate = useNavigate();
   const { request } = useFetch();
+  const navigate = useNavigate();
+  const [error, setErrors] = useState(null);
 
-  const { values, setValues, changeHandler } = useForm(
+  const { values, setValues, changeHandler, errors } = useForm(
     submitHandler,
-    initialValues
+    initialValues,
+    validate
   );
 
   useEffect(() => {
@@ -29,7 +32,13 @@ export default function Edit() {
 
   async function submitHandler() {
     try {
+      if (Object.keys(errors).length > 0) {
+        setErrors("Please fix the validation errors before submitting.");
+        return;
+      }
+
       request(`/data/books/${bookId}`, "PUT", values);
+      setErrors(null);
       navigate("/catalog");
     } catch (error) {
       alert(error.message);
@@ -58,8 +67,8 @@ export default function Edit() {
               onChange={changeHandler}
               placeholder="Enter book title"
               className="border border-gray-300 p-3 rounded-xl focus:outline-none focus:border-indigo-500 focus:shadow-md transition"
-              required
             />
+            {errors.title && <p className="text-red-500">{errors.title}</p>}
           </div>
 
           <div className="flex flex-col">
@@ -74,8 +83,8 @@ export default function Edit() {
               onChange={changeHandler}
               placeholder="Enter author name"
               className="border border-gray-300 p-3 rounded-xl focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-300 transition"
-              required
             />
+            {errors.author && <p className="text-red-500">{errors.author}</p>}
           </div>
 
           <div className="flex flex-col">
@@ -90,8 +99,8 @@ export default function Edit() {
               onChange={changeHandler}
               placeholder="Enter genre"
               className="border border-gray-300 p-3 rounded-xl focus:outline-none focus:border-indigo-500 focus:shadow-md transition"
-              required
             />
+            {errors.genre && <p className="text-red-500">{errors.genre}</p>}
           </div>
 
           <div className="flex flex-col">
@@ -106,8 +115,8 @@ export default function Edit() {
               onChange={changeHandler}
               placeholder="Number of pages"
               className="border border-gray-300 p-3 rounded-xl focus:outline-none focus:border-indigo-500 focus:shadow-md transition"
-              required
             />
+            {errors.pages && <p className="text-red-500">{errors.pages}</p>}
           </div>
 
           <div className="flex flex-col">
@@ -121,8 +130,8 @@ export default function Edit() {
               onChange={changeHandler}
               type="date"
               className="border border-gray-300 p-3 rounded-xl focus:outline-none focus:border-indigo-500 focus:shadow-md transition"
-              required
             />
+            {errors.date && <p className="text-red-500">{errors.date}</p>}
           </div>
 
           <div className="flex flex-col">
@@ -140,8 +149,10 @@ export default function Edit() {
               type="text"
               placeholder="Enter image URL"
               className="border border-gray-300 p-3 rounded-xl focus:outline-none focus:border-indigo-500 focus:shadow-md transition"
-              required
             />
+            {errors.imageUrl && (
+              <p className="text-red-500">{errors.imageUrl}</p>
+            )}
           </div>
 
           <div className="flex flex-col">
@@ -156,9 +167,11 @@ export default function Edit() {
               rows="5"
               placeholder="Write a short summary"
               className="border border-gray-300 p-3 rounded-xl focus:outline-none focus:border-indigo-500 focus:shadow-md transition"
-              required
             />
+            {errors.summary && <p className="text-red-500">{errors.summary}</p>}
           </div>
+
+          {error && <p className="text-red-500 text-center">{error}</p>}
 
           <button
             type="submit"
