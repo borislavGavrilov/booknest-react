@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router";
 import useFetch from "../hooks/useFetch";
 import useForm from "../hooks/useForm";
-import validate from "../utils/validationUtils.js";
+import validate from "../utils/validationUtilCreateEdit.js";
 import { useState } from "react";
 
 const initialValues = {

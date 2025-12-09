@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import useFetch from "../hooks/useFetch";
 import useForm from "../hooks/useForm";
-import validate from "../utils/validationUtils.js";
+import validate from "../utils/validationUtilCreateEdit.js";
 const initialValues = {
   title: "",
   author: "",

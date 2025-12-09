@@ -1,27 +1,44 @@
 import { useContext } from "react";
 import UserContext from "../../context/userContext";
 import { useState } from "react";
+import useForm from "../hooks/useForm";
+import validateLogin from "../utils/loginRegValidation.js";
+
+const initialValues = {
+  email: "",
+  password: "",
+};
 
 export default function Login() {
   const { onLogin } = useContext(UserContext);
-  const [loginInProgress, setLoginInProgress] = useState(true);
+  const [error, setError] = useState(null);
 
-  async function handleSubmit(formData) {
-    const email = formData.get("email");
-    const password = formData.get("password");
+  const { values, changeHandler, errors } = useForm(
+    onSubmit,
+    initialValues,
+    validateLogin
+  );
 
-    if (!email || !password) {
-      setLoginInProgress(false);
+  async function onSubmit() {
+    const { email, password } = values;
+
+    setError(errors);
+
+    console.log(error);
+
+    if (error?.email || error?.password) {
+      setError("Please fix the validation errors before submitting.");
       return;
     }
-
+    setError(null);
     const result = await onLogin({ email, password });
 
     if (!result) {
-      setLoginInProgress(false);
+      setError(
+        "Login failed. Please check your email and password and try again."
+      );
       return;
     }
-    setLoginInProgress(true);
   }
 
   return (
@@ -31,7 +48,7 @@ export default function Login() {
       </h2>
 
       <form
-        action={handleSubmit}
+        action={onSubmit}
         className="flex flex-col gap-6 bg-white p-8 rounded-2xl shadow-lg"
       >
         <div className="flex flex-col">
@@ -41,11 +58,15 @@ export default function Login() {
           <input
             type="email"
             name="email"
+            value={values.email}
+            onChange={changeHandler}
             id="email"
             placeholder="Enter your email"
             className="border border-gray-300 p-3 rounded-xl focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-300 transition"
-            required
           />
+          {error?.email && (
+            <p className="text-red-500 mt-1 text-sm">{error.email}</p>
+          )}
         </div>
 
         <div className="flex flex-col">
@@ -55,18 +76,18 @@ export default function Login() {
           <input
             type="password"
             name="password"
+            value={values.password}
+            onChange={changeHandler}
             id="password"
             placeholder="Enter your password"
             className="border border-gray-300 p-3 rounded-xl focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-300 transition"
-            required
           />
+          {error?.password && (
+            <p className="text-red-500 mt-1 text-sm">{error.password}</p>
+          )}
         </div>
 
-        {!loginInProgress && (
-          <p className="text-red-500 text-center">
-            Login failed. Please check your credentials and try again.
-          </p>
-        )}
+        {error && <p className="text-red-500 text-center">{error}</p>}
 
         <button
           type="submit"
