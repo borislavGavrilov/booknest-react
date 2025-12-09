@@ -1,14 +1,27 @@
 import { useContext } from "react";
 import UserContext from "../../context/userContext";
+import { useState } from "react";
 
 export default function Login() {
   const { onLogin } = useContext(UserContext);
+  const [loginInProgress, setLoginInProgress] = useState(true);
 
-  function handleSubmit(formData) {
+  async function handleSubmit(formData) {
     const email = formData.get("email");
     const password = formData.get("password");
 
-    onLogin({ email, password });
+    if (!email || !password) {
+      setLoginInProgress(false);
+      return;
+    }
+
+    const result = await onLogin({ email, password });
+
+    if (!result) {
+      setLoginInProgress(false);
+      return;
+    }
+    setLoginInProgress(true);
   }
 
   return (
@@ -48,6 +61,12 @@ export default function Login() {
             required
           />
         </div>
+
+        {!loginInProgress && (
+          <p className="text-red-500 text-center">
+            Login failed. Please check your credentials and try again.
+          </p>
+        )}
 
         <button
           type="submit"

@@ -9,8 +9,7 @@ export default function useForm(callback, initialValues, validate) {
       [e.target.name]: e.target.value,
     }));
 
-    const errors = validate({ ...values, [e.target.name]: e.target.value });
-    console.log(errors);
+    validate({ ...values, [e.target.name]: e.target.value });
   };
 
   const formAction = (formData) => {

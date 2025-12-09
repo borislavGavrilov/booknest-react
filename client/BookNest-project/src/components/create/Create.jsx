@@ -1,14 +1,39 @@
 import { useNavigate } from "react-router";
 import useFetch from "../hooks/useFetch";
+import useForm from "../hooks/useForm";
+import validate from "../utils/validationUtils.js";
+import { useState } from "react";
+
+const initialValues = {
+  title: "",
+  author: "",
+  genre: "",
+  pages: "",
+  date: "",
+  imageUrl: "",
+  summary: "",
+};
 
 export default function Create() {
   const navigate = useNavigate();
   const { request } = useFetch();
+  const [error, setError] = useState(null);
 
-  async function onSubmitHandler(formData) {
-    const data = Object.fromEntries(formData);
+  const { values, changeHandler, errors } = useForm(
+    onSubmitHandler,
+    initialValues,
+    validate
+  );
+
+  async function onSubmitHandler(values) {
+    const data = Object.fromEntries(values);
+    setError(errors);
 
     data._createdOn = new Date();
+
+    if (Object.keys(errors).length > 0) {
+      return;
+    }
 
     await request("/data/books", "POST", data);
 
@@ -25,7 +50,6 @@ export default function Create() {
         action={onSubmitHandler}
         className="bg-white p-8 rounded-2xl shadow-lg flex flex-col gap-6"
       >
-        {/* Title */}
         <div className="flex flex-col">
           <label htmlFor="title" className="mb-1 text-gray-600 font-medium">
             Title
@@ -33,14 +57,17 @@ export default function Create() {
           <input
             id="title"
             name="title"
+            value={values.title}
+            onChange={changeHandler}
             type="text"
             placeholder="Book title"
             className="border border-gray-300 p-3 rounded-xl focus:outline-none focus:border-green-500 focus:shadow-md transition"
-            required
           />
+          {error?.title && (
+            <p className="text-red-500 text-sm mt-1">{error?.title}</p>
+          )}
         </div>
 
-        {/* Author */}
         <div className="flex flex-col">
           <label htmlFor="author" className="mb-1 text-gray-600 font-medium">
             Author
@@ -48,14 +75,17 @@ export default function Create() {
           <input
             id="author"
             name="author"
+            value={values.author}
+            onChange={changeHandler}
             type="text"
             placeholder="Author's name"
             className="border border-gray-300 p-3 rounded-xl focus:outline-none focus:border-green-500 focus:shadow-md transition"
-            required
           />
+          {error?.author && (
+            <p className="text-red-500 text-sm mt-1">{error?.author}</p>
+          )}
         </div>
 
-        {/* Genre */}
         <div className="flex flex-col">
           <label htmlFor="genre" className="mb-1 text-gray-600 font-medium">
             Genre
@@ -63,14 +93,17 @@ export default function Create() {
           <input
             id="genre"
             name="genre"
+            value={values.genre}
+            onChange={changeHandler}
             type="text"
             placeholder="Genre"
             className="border border-gray-300 p-3 rounded-xl focus:outline-none focus:border-green-500 focus:shadow-md transition"
-            required
           />
+          {error?.genre && (
+            <p className="text-red-500 text-sm mt-1">{error?.genre}</p>
+          )}
         </div>
 
-        {/* Pages */}
         <div className="flex flex-col">
           <label htmlFor="pages" className="mb-1 text-gray-600 font-medium">
             Pages
@@ -78,14 +111,17 @@ export default function Create() {
           <input
             id="pages"
             name="pages"
+            value={values.pages}
+            onChange={changeHandler}
             type="number"
             placeholder="Number of pages"
             className="border border-gray-300 p-3 rounded-xl focus:outline-none focus:border-green-500 focus:shadow-md transition"
-            required
           />
+          {error?.pages && (
+            <p className="text-red-500 text-sm mt-1">{error?.pages}</p>
+          )}
         </div>
 
-        {/* Published Date */}
         <div className="flex flex-col">
           <label htmlFor="date" className="mb-1 text-gray-600 font-medium">
             Published Date
@@ -93,13 +129,16 @@ export default function Create() {
           <input
             id="date"
             name="date"
+            value={values.date}
+            onChange={changeHandler}
             type="date"
             className="border border-gray-300 p-3 rounded-xl focus:outline-none focus:border-green-500 focus:shadow-md transition"
-            required
           />
+          {error?.date && (
+            <p className="text-red-500 text-sm mt-1">{error?.date}</p>
+          )}
         </div>
 
-        {/* Image URL */}
         <div className="flex flex-col">
           <label htmlFor="imageUrl" className="mb-1 text-gray-600 font-medium">
             Image URL
@@ -107,14 +146,17 @@ export default function Create() {
           <input
             id="imageUrl"
             name="imageUrl"
+            value={values.imageUrl}
+            onChange={changeHandler}
             type="text"
             placeholder="Book cover image URL"
             className="border border-gray-300 p-3 rounded-xl focus:outline-none focus:border-green-500 focus:shadow-md transition"
-            required
           />
+          {error?.imageUrl && (
+            <p className="text-red-500 text-sm mt-1">{error?.imageUrl}</p>
+          )}
         </div>
 
-        {/* Summary */}
         <div className="flex flex-col">
           <label htmlFor="summary" className="mb-1 text-gray-600 font-medium">
             Summary
@@ -122,14 +164,17 @@ export default function Create() {
           <textarea
             id="summary"
             name="summary"
+            value={values.summary}
+            onChange={changeHandler}
             rows="5"
             placeholder="Write a short summary"
             className="border border-gray-300 p-3 rounded-xl focus:outline-none focus:border-green-500 focus:shadow-md transition"
-            required
           />
+          {error?.summary && (
+            <p className="text-red-500 text-sm mt-1">{error?.summary}</p>
+          )}
         </div>
 
-        {/* Submit Button */}
         <button
           type="submit"
           className="bg-green-600 text-white px-6 py-3 rounded-2xl hover:bg-green-700 transition font-semibold shadow-md"

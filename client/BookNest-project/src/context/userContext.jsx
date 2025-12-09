@@ -35,13 +35,13 @@ export function UserProvider({ children }) {
   async function onLogin(email, password) {
     const result = await request("/users/login", "POST", email, password);
 
-    if (!result) {
-      alert("Email or Password doesn't match !");
-      return;
+    if (result) {
+      setUser(result);
+      redirectTo("/");
+      return result;
+    } else {
+      return null;
     }
-    setUser(result);
-
-    redirectTo("/");
   }
 
   async function onLogout() {
