@@ -3,6 +3,8 @@ import useFetch from "../hooks/useFetch";
 import useForm from "../hooks/useForm";
 import validate from "../utils/validationUtilCreateEdit.js";
 import { useState } from "react";
+import { useContext } from "react";
+import UserContext from "../../context/userContext";
 
 const initialValues = {
   title: "",
@@ -18,12 +20,15 @@ export default function Create() {
   const navigate = useNavigate();
   const { request } = useFetch();
   const [errorState, setErrorState] = useState({});
+  const { user } = useContext(UserContext);
 
   const { values, changeHandler } = useForm(onSubmitHandler, initialValues);
 
   async function onSubmitHandler(values) {
     const data = Object.fromEntries(values);
     data._createdOn = new Date();
+    data.creatorEmail = user.email;
+
     const errors = validate(data);
     setErrorState(errors);
 

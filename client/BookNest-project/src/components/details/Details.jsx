@@ -67,7 +67,6 @@ export default function Details() {
   return (
     <section className="max-w-4xl mx-auto mt-20 px-4">
       <div className="flex flex-col md:flex-row gap-8">
-        {/* Book Image */}
         <div className="w-full md:w-1/3 flex justify-center items-center bg-gray-100 rounded-lg shadow-lg overflow-hidden">
           <img
             src={book.imageUrl}
@@ -81,9 +80,17 @@ export default function Details() {
             <h2 className="text-3xl font-bold text-gray-800 mb-4">
               {book.title}
             </h2>
+            <p className="text-gray-800 font-medium mb-4 flex items-center gap-2">
+              <span className="px-2 py-1 bg-green-100 text-green-700 rounded-lg text-sm shadow-sm">
+                Owner
+              </span>
+              <span className="text-gray-700">{book.creatorEmail}</span>
+            </p>
+
             <p className="text-gray-600 mb-2">
               <strong>Genre:</strong> {book.genre}
             </p>
+
             <p className="text-gray-600 mb-2">
               <strong>Pages:</strong> {book.pages}
             </p>
