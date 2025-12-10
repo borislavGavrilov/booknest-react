@@ -24,19 +24,23 @@ export default function Login() {
     const errors = validateLogin(values);
     setErrorState(errors);
 
-    if (Object.keys(errors).length > 0) {
-      return;
-    }
+    try {
+      if (Object.keys(errors).length > 0) {
+        return;
+      }
 
-    setErrorState(null);
+      setErrorState(null);
 
-    const result = await onLogin({ email, password });
+      const result = await onLogin({ email, password });
 
-    if (!result) {
-      setErrorState(
-        "Login failed. Please check your email and password and try again."
-      );
-      return;
+      if (!result) {
+        setErrorState(
+          "Login failed. Please check your email and password and try again."
+        );
+        return;
+      }
+    } catch (error) {
+      alert(error.message);
     }
   }
 

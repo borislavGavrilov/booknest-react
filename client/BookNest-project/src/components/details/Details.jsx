@@ -30,19 +30,23 @@ export default function Details() {
   const alreadyLiked = user && likes.some((like) => like._ownerId === user._id);
 
   async function likesHandler() {
-    if (alreadyLiked) {
-      alert("You already liked this book!");
-      return;
+    try {
+      if (alreadyLiked) {
+        alert("You already liked this book!");
+        return;
+      }
+      await request("/data/likes", "POST", { bookId });
+
+      const res = await fetch(
+        `http://localhost:3030/data/likes?where=bookId%3D%22${bookId}%22`
+      );
+      const updated = await res.json();
+      console.log(updated);
+
+      setLikes(updated);
+    } catch (error) {
+      alert("Error liking the book:", error.message);
     }
-    await request("/data/likes", "POST", { bookId });
-
-    const res = await fetch(
-      `http://localhost:3030/data/likes?where=bookId%3D%22${bookId}%22`
-    );
-    const updated = await res.json();
-    console.log(updated);
-
-    setLikes(updated);
   }
 
   if (!book) {
@@ -54,8 +58,6 @@ export default function Details() {
   }
 
   const deleteBookHandler = async () => {
-    alert("Are you sure you want to delete this book? ");
-
     try {
       await request(`/data/books/${bookId}`, "DELETE");
       redirect("/catalog");

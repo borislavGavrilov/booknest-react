@@ -17,21 +17,24 @@ export default function Register() {
 
   async function handleSubmit() {
     const { email, password } = values;
-
     const errors = validateRegister(values);
     setErrorState(errors);
 
-    if (Object.keys(errors).length > 0) {
-      return;
-    }
+    try {
+      if (Object.keys(errors).length > 0) {
+        return;
+      }
 
-    const result = await onRegister({ email, password });
+      const result = await onRegister({ email, password });
 
-    if (result === null) {
-      setErrorState(
-        "Registration failed. A user with the same email already exists."
-      );
-      return;
+      if (result === null) {
+        setErrorState(
+          "Registration failed. A user with the same email already exists."
+        );
+        return;
+      }
+    } catch (error) {
+      alert(error.message);
     }
   }
 

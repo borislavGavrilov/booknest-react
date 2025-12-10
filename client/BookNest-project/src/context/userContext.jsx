@@ -23,33 +23,48 @@ export function UserProvider({ children }) {
   const redirectTo = useNavigate();
 
   async function onRegister(newUser) {
-    const result = await request("/users/register", "POST", newUser);
-
-    if (!result) {
+    try {
+      const result = await request("/users/register", "POST", newUser);
+      if (!result) {
+        return null;
+      }
+      setUser(result);
+      redirectTo("/");
+    } catch (error) {
+      alert(error.message);
       return null;
     }
-
-    redirectTo("/login");
   }
 
   async function onLogin(email, password) {
-    const result = await request("/users/login", "POST", email, password);
+    try {
+      const result = await request("/users/login", "POST", email, password);
 
-    if (!result) {
+      if (!result) {
+        return null;
+      }
+
+      setUser(result);
+
+      redirectTo("/");
+
+      return result;
+    } catch (error) {
+      alert(error.message);
       return null;
     }
-
-    setUser(result);
-    localStorage.setItem("userData", JSON.stringify(result));
-    redirectTo("/");
-    return result;
   }
 
   async function onLogout() {
-    const token = user?.accessToken;
-    return request("/users/logout", "GET", null, {
-      accessToken: token,
-    }).finally(() => setUser(null));
+    try {
+      const token = user?.accessToken;
+      return request("/users/logout", "GET", null, {
+        accessToken: token,
+      }).finally(() => setUser(null));
+    } catch (error) {
+      alert(error.message);
+      return null;
+    }
   }
 
   const UserContextValues = {
