@@ -8,7 +8,8 @@ import Login from "./components/login/Login";
 import Register from "./components/register/Register";
 import { Route, Routes } from "react-router";
 import Edit from "./components/edit/Edit";
-import UserContext, { UserProvider } from "./context/userContext";
+import PrivateRoutes from "./components/privateRoutes/PriveteRoutes";
+import NotFound from "./components/notFound/NotFound";
 import Logout from "./components/logout/logout";
 
 function App() {
@@ -18,13 +19,29 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/catalog" element={<Catalog />} />
-        <Route path="/catalog/:bookId/details" element={<Details />} />
-        <Route path="/catalog/:bookId/edit" element={<Edit />} />
 
-        <Route path="/create" element={<Create />} />
+        <Route path="/catalog/:bookId/details" element={<Details />} />
+        <Route
+          path="/catalog/:bookId/edit"
+          element={
+            <PrivateRoutes>
+              <Edit />
+            </PrivateRoutes>
+          }
+        />
+
+        <Route
+          path="/create"
+          element={
+            <PrivateRoutes>
+              <Create />
+            </PrivateRoutes>
+          }
+        />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/logout" element={<Logout />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
 
       <Footer />
