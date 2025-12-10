@@ -6,21 +6,17 @@ export default function Catalog() {
   const [books, setBooks] = useState([]);
   const { request } = useFetch();
 
-  try {
-    useEffect(() => {
-      request("/data/books")
-        .then((result) => {
-          if (!result) {
-            setBooks([]);
-            return;
-          }
-          setBooks(result);
-        })
-        .catch((err) => alert(err));
-    }, []);
-  } catch (error) {
-    console.error("Error fetching books:", error);
-  }
+  useEffect(() => {
+    request("/data/books")
+      .then((result) => {
+        if (!result) {
+          setBooks([]);
+          return;
+        }
+        setBooks(result);
+      })
+      .catch((err) => alert(err));
+  }, []);
 
   return (
     <section className="max-w-6xl mx-auto mt-12 px-4">

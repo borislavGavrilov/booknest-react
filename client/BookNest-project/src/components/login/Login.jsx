@@ -24,13 +24,13 @@ export default function Login() {
     const errors = validateLogin(values);
     setErrorState(errors);
 
+    if (Object.keys(errors).length > 0) {
+      return;
+    }
+
+    setErrorState(null);
+
     try {
-      if (Object.keys(errors).length > 0) {
-        return;
-      }
-
-      setErrorState(null);
-
       const result = await onLogin({ email, password });
 
       if (!result) {

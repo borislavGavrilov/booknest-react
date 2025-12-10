@@ -20,11 +20,11 @@ export default function Register() {
     const errors = validateRegister(values);
     setErrorState(errors);
 
-    try {
-      if (Object.keys(errors).length > 0) {
-        return;
-      }
+    if (Object.keys(errors).length > 0) {
+      return;
+    }
 
+    try {
       const result = await onRegister({ email, password });
 
       if (result === null) {

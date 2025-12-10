@@ -36,9 +36,13 @@ export default function Create() {
       return;
     }
 
-    await request("/data/books", "POST", data);
+    try {
+      await request("/data/books", "POST", data);
 
-    navigate("/catalog");
+      navigate("/catalog");
+    } catch (error) {
+      alert(error.message);
+    }
   }
 
   return (

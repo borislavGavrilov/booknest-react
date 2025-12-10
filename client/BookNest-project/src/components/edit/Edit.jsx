@@ -32,11 +32,10 @@ export default function Edit() {
   async function submitHandler() {
     const errors = validate(values);
     setErrorState(errors);
+    if (Object.keys(errors).length > 0) {
+      return;
+    }
     try {
-      if (Object.keys(errors).length > 0) {
-        return;
-      }
-
       request(`/data/books/${bookId}`, "PUT", values);
       setErrorState(null);
       navigate("/catalog");

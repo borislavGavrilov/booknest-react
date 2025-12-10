@@ -30,11 +30,11 @@ export default function Details() {
   const alreadyLiked = user && likes.some((like) => like._ownerId === user._id);
 
   async function likesHandler() {
+    if (alreadyLiked) {
+      alert("You already liked this book!");
+      return;
+    }
     try {
-      if (alreadyLiked) {
-        alert("You already liked this book!");
-        return;
-      }
       await request("/data/likes", "POST", { bookId });
 
       const res = await fetch(
