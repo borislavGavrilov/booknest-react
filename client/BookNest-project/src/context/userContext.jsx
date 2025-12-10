@@ -20,7 +20,7 @@ const UserContext = createContext({
 export function UserProvider({ children }) {
   const [user, setUser] = useLocalStorage();
   const { request } = useFetch();
-  const redirectTo = useNavigate();
+  const navigate = useNavigate();
 
   async function onRegister(newUser) {
     try {
@@ -29,7 +29,7 @@ export function UserProvider({ children }) {
         return null;
       }
       setUser(result);
-      redirectTo("/");
+      navigate("/");
     } catch (error) {
       alert(error.message);
       return null;
@@ -46,7 +46,7 @@ export function UserProvider({ children }) {
 
       setUser(result);
 
-      redirectTo("/");
+      navigate("/");
 
       return result;
     } catch (error) {

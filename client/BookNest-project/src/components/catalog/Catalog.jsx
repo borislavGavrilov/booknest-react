@@ -16,7 +16,7 @@ export default function Catalog() {
         setBooks(result);
       })
       .catch((err) => alert(err));
-  }, []);
+  }, [request]);
 
   return (
     <section className="max-w-6xl mx-auto mt-12 px-4">
