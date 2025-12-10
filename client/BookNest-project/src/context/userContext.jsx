@@ -23,10 +23,10 @@ export function UserProvider({ children }) {
 
   async function onRegister(newUser) {
     const result = await request("/users/register", "POST", newUser);
+    console.log(result);
 
     if (!result) {
-      alert("A user with the same email already exists");
-      return;
+      return null;
     }
 
     redirectTo("/login");

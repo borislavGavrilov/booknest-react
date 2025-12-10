@@ -11,9 +11,9 @@ const initialValues = {
 
 export default function Login() {
   const { onLogin } = useContext(UserContext);
-  const [error, setError] = useState(null);
+  const [errorState, setErrorState] = useState({});
 
-  const { values, changeHandler, errors } = useForm(
+  const { values, changeHandler } = useForm(
     onSubmit,
     initialValues,
     validateLogin
@@ -21,20 +21,19 @@ export default function Login() {
 
   async function onSubmit() {
     const { email, password } = values;
+    const errors = validateLogin(values);
+    setErrorState(errors);
 
-    setError(errors);
-
-    console.log(error);
-
-    if (error?.email || error?.password) {
-      setError("Please fix the validation errors before submitting.");
+    if (Object.keys(errors).length > 0) {
       return;
     }
-    setError(null);
+
+    setErrorState(null);
+
     const result = await onLogin({ email, password });
 
     if (!result) {
-      setError(
+      setErrorState(
         "Login failed. Please check your email and password and try again."
       );
       return;
@@ -56,7 +55,7 @@ export default function Login() {
             Email
           </label>
           <input
-            type="email"
+            type="text"
             name="email"
             value={values.email}
             onChange={changeHandler}
@@ -64,8 +63,10 @@ export default function Login() {
             placeholder="Enter your email"
             className="border border-gray-300 p-3 rounded-xl focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-300 transition"
           />
-          {error?.email && (
-            <p className="text-red-500 mt-1 text-sm">{error.email}</p>
+          {errorState?.email ? (
+            <p className="text-red-500 mt-1 text-sm">{errorState.email}</p>
+          ) : (
+            ""
           )}
         </div>
 
@@ -82,12 +83,15 @@ export default function Login() {
             placeholder="Enter your password"
             className="border border-gray-300 p-3 rounded-xl focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-300 transition"
           />
-          {error?.password && (
-            <p className="text-red-500 mt-1 text-sm">{error.password}</p>
+          {errorState?.password ? (
+            <p className="text-red-500 mt-1 text-sm">{errorState.password}</p>
+          ) : (
+            ""
           )}
         </div>
-
-        {error && <p className="text-red-500 text-center">{error}</p>}
+        {typeof errorState === "string" && (
+          <p className="text-red-600 text-center font-medium">{errorState}</p>
+        )}
 
         <button
           type="submit"

@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function useForm(callback, initialValues, validateLogin) {
+export default function useForm(callback, initialValues) {
   const [values, setValues] = useState(initialValues);
 
   const changeHandler = (e) => {
@@ -8,8 +8,6 @@ export default function useForm(callback, initialValues, validateLogin) {
       ...state,
       [e.target.name]: e.target.value,
     }));
-
-    validateLogin({ ...values, [e.target.name]: e.target.value });
   };
 
   const formAction = (formData) => {
@@ -21,6 +19,5 @@ export default function useForm(callback, initialValues, validateLogin) {
     setValues,
     changeHandler,
     formAction,
-    errors: validateLogin(values),
   };
 }

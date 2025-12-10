@@ -25,9 +25,12 @@ export default function Create() {
     validate
   );
 
+  console.log(errors);
+
   async function onSubmitHandler(values) {
     const data = Object.fromEntries(values);
     setError(errors);
+    console.log(error);
 
     data._createdOn = new Date();
 

@@ -1,25 +1,38 @@
 import { useContext } from "react";
 import UserContext from "../../context/userContext";
+import useForm from "../hooks/useForm";
+import validateRegister from "../utils/loginRegValidation.js";
+import { useState } from "react";
+const initialValues = {
+  email: "",
+  password: "",
+  repass: "",
+};
 
 export default function Register() {
   const { onRegister } = useContext(UserContext);
+  const [errorState, setErrorState] = useState({});
 
-  function handleSubmit(formData) {
-    const email = formData.get("email");
-    const password = formData.get("password");
-    const rePass = formData.get("repass");
+  const { values, changeHandler } = useForm(handleSubmit, initialValues);
 
-    if (!email || !password || !rePass) {
-      alert("All fields are required!");
+  async function handleSubmit() {
+    const { email, password } = values;
+
+    const errors = validateRegister(values);
+    setErrorState(errors);
+
+    if (Object.keys(errors).length > 0) {
       return;
     }
 
-    if (password !== rePass) {
-      alert("Passwords do not match!");
+    const result = await onRegister({ email, password });
+
+    if (result === null) {
+      setErrorState(
+        "Registration failed. A user with the same email already exists."
+      );
       return;
     }
-
-    onRegister({ email, password });
   }
 
   return (
@@ -41,13 +54,18 @@ export default function Register() {
             type="email"
             id="email"
             name="email"
+            value={values.email}
+            onChange={changeHandler}
             placeholder="Enter your email"
             className="border border-gray-300 p-3 rounded-xl focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-300 transition"
-            required
           />
+          {errorState?.email ? (
+            <p className="text-red-500 mt-1 text-sm">{errorState.email}</p>
+          ) : (
+            ""
+          )}
         </div>
 
-        {/* Password */}
         <div className="flex flex-col">
           <label htmlFor="password" className="mb-1 text-gray-600 font-medium">
             Password
@@ -56,13 +74,18 @@ export default function Register() {
             type="password"
             id="password"
             name="password"
+            value={values.password}
+            onChange={changeHandler}
             placeholder="Enter your password"
             className="border border-gray-300 p-3 rounded-xl focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-300 transition"
-            required
           />
+          {errorState?.password ? (
+            <p className="text-red-500 mt-1 text-sm">{errorState.password}</p>
+          ) : (
+            ""
+          )}
         </div>
 
-        {/* Repeat Password */}
         <div className="flex flex-col">
           <label htmlFor="repass" className="mb-1 text-gray-600 font-medium">
             Repeat Password
@@ -71,13 +94,21 @@ export default function Register() {
             type="password"
             id="repass"
             name="repass"
+            value={values.repass}
+            onChange={changeHandler}
             placeholder="Repeat your password"
             className="border border-gray-300 p-3 rounded-xl focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-300 transition"
-            required
           />
+          {errorState?.repass ? (
+            <p className="text-red-500 mt-1 text-sm">{errorState.repass}</p>
+          ) : (
+            ""
+          )}
         </div>
 
-        {/* Submit */}
+        {typeof errorState === "string" && (
+          <p className="text-red-600 text-center font-medium">{errorState}</p>
+        )}
         <button
           type="submit"
           className="bg-green-600 text-white px-6 py-3 rounded-2xl hover:bg-green-700 transition font-semibold shadow-md"
