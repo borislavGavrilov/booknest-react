@@ -1,6 +1,7 @@
-import { createContext, useState } from "react";
+import { createContext } from "react";
 import useFetch from "../components/hooks/useFetch";
 import { useNavigate } from "react-router";
+import useLocalStorage from "../components/hooks/useLocalStorage";
 
 const UserContext = createContext({
   isAuthendicated: false,
@@ -17,7 +18,7 @@ const UserContext = createContext({
 });
 
 export function UserProvider({ children }) {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useLocalStorage();
   const { request } = useFetch();
   const redirectTo = useNavigate();
 
@@ -39,6 +40,7 @@ export function UserProvider({ children }) {
     }
 
     setUser(result);
+    localStorage.setItem("userData", JSON.stringify(result));
     redirectTo("/");
     return result;
   }

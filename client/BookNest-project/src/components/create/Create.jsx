@@ -27,7 +27,7 @@ export default function Create() {
     const errors = validate(data);
     setErrorState(errors);
 
-    if (Object.keys(errorState).length >= 0) {
+    if (Object.keys(errors).length > 0) {
       return;
     }
 

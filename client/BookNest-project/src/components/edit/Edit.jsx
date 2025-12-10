@@ -185,7 +185,7 @@ export default function Edit() {
 
           <button
             type="submit"
-            className="bg-indigo-600 text-white px-6 py-3 rounded-2xl hover:bg-indigo-700 transition font-semibold shadow-md"
+            className="bg-green-600 text-white px-6 py-3 rounded-2xl hover:bg-green-700 transition font-semibold shadow-md"
           >
             Edit Book
           </button>
