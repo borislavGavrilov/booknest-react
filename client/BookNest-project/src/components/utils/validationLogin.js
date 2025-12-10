@@ -25,14 +25,6 @@ export default function validateLogin(values) {
     errors.password = "Password cannot exceed 50 characters";
     return errors;
   }
-  if (values?.repass?.length === 0) {
-    errors.repass = "Please confirm your password";
-    return errors;
-  }
-  if (values?.password !== values?.repass) {
-    errors.repass = "Passwords do not match";
-    return errors;
-  }
 
   return errors;
 }

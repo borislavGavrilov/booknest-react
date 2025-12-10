@@ -23,7 +23,6 @@ export function UserProvider({ children }) {
 
   async function onRegister(newUser) {
     const result = await request("/users/register", "POST", newUser);
-    console.log(result);
 
     if (!result) {
       return null;
@@ -35,13 +34,13 @@ export function UserProvider({ children }) {
   async function onLogin(email, password) {
     const result = await request("/users/login", "POST", email, password);
 
-    if (result) {
-      setUser(result);
-      redirectTo("/");
-      return result;
-    } else {
+    if (!result) {
       return null;
     }
+
+    setUser(result);
+    redirectTo("/");
+    return result;
   }
 
   async function onLogout() {

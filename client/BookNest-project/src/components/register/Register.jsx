@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import UserContext from "../../context/userContext";
 import useForm from "../hooks/useForm";
-import validateRegister from "../utils/loginRegValidation.js";
+import validateRegister from "../utils/validationReg.js";
 import { useState } from "react";
 const initialValues = {
   email: "",

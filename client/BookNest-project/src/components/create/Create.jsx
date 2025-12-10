@@ -17,24 +17,17 @@ const initialValues = {
 export default function Create() {
   const navigate = useNavigate();
   const { request } = useFetch();
-  const [error, setError] = useState(null);
+  const [errorState, setErrorState] = useState({});
 
-  const { values, changeHandler, errors } = useForm(
-    onSubmitHandler,
-    initialValues,
-    validate
-  );
-
-  console.log(errors);
+  const { values, changeHandler } = useForm(onSubmitHandler, initialValues);
 
   async function onSubmitHandler(values) {
     const data = Object.fromEntries(values);
-    setError(errors);
-    console.log(error);
-
     data._createdOn = new Date();
+    const errors = validate(data);
+    setErrorState(errors);
 
-    if (Object.keys(errors).length > 0) {
+    if (Object.keys(errorState).length >= 0) {
       return;
     }
 
@@ -66,8 +59,8 @@ export default function Create() {
             placeholder="Book title"
             className="border border-gray-300 p-3 rounded-xl focus:outline-none focus:border-green-500 focus:shadow-md transition"
           />
-          {error?.title && (
-            <p className="text-red-500 text-sm mt-1">{error?.title}</p>
+          {errorState?.title && (
+            <p className="text-red-500 text-sm mt-1">{errorState?.title}</p>
           )}
         </div>
 
@@ -84,8 +77,8 @@ export default function Create() {
             placeholder="Author's name"
             className="border border-gray-300 p-3 rounded-xl focus:outline-none focus:border-green-500 focus:shadow-md transition"
           />
-          {error?.author && (
-            <p className="text-red-500 text-sm mt-1">{error?.author}</p>
+          {errorState?.author && (
+            <p className="text-red-500 text-sm mt-1">{errorState?.author}</p>
           )}
         </div>
 
@@ -102,8 +95,8 @@ export default function Create() {
             placeholder="Genre"
             className="border border-gray-300 p-3 rounded-xl focus:outline-none focus:border-green-500 focus:shadow-md transition"
           />
-          {error?.genre && (
-            <p className="text-red-500 text-sm mt-1">{error?.genre}</p>
+          {errorState?.genre && (
+            <p className="text-red-500 text-sm mt-1">{errorState?.genre}</p>
           )}
         </div>
 
@@ -120,8 +113,8 @@ export default function Create() {
             placeholder="Number of pages"
             className="border border-gray-300 p-3 rounded-xl focus:outline-none focus:border-green-500 focus:shadow-md transition"
           />
-          {error?.pages && (
-            <p className="text-red-500 text-sm mt-1">{error?.pages}</p>
+          {errorState?.pages && (
+            <p className="text-red-500 text-sm mt-1">{errorState?.pages}</p>
           )}
         </div>
 
@@ -137,8 +130,8 @@ export default function Create() {
             type="date"
             className="border border-gray-300 p-3 rounded-xl focus:outline-none focus:border-green-500 focus:shadow-md transition"
           />
-          {error?.date && (
-            <p className="text-red-500 text-sm mt-1">{error?.date}</p>
+          {errorState?.date && (
+            <p className="text-red-500 text-sm mt-1">{errorState?.date}</p>
           )}
         </div>
 
@@ -155,8 +148,8 @@ export default function Create() {
             placeholder="Book cover image URL"
             className="border border-gray-300 p-3 rounded-xl focus:outline-none focus:border-green-500 focus:shadow-md transition"
           />
-          {error?.imageUrl && (
-            <p className="text-red-500 text-sm mt-1">{error?.imageUrl}</p>
+          {errorState?.imageUrl && (
+            <p className="text-red-500 text-sm mt-1">{errorState?.imageUrl}</p>
           )}
         </div>
 
@@ -173,8 +166,8 @@ export default function Create() {
             placeholder="Write a short summary"
             className="border border-gray-300 p-3 rounded-xl focus:outline-none focus:border-green-500 focus:shadow-md transition"
           />
-          {error?.summary && (
-            <p className="text-red-500 text-sm mt-1">{error?.summary}</p>
+          {errorState?.summary && (
+            <p className="text-red-500 text-sm mt-1">{errorState?.summary}</p>
           )}
         </div>
 

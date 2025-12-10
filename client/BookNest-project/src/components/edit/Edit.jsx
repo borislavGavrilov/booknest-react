@@ -16,12 +16,11 @@ export default function Edit() {
   const { bookId } = useParams();
   const { request } = useFetch();
   const navigate = useNavigate();
-  const [error, setErrors] = useState(null);
+  const [errorState, setErrorState] = useState({});
 
-  const { values, setValues, changeHandler, errors } = useForm(
+  const { values, setValues, changeHandler } = useForm(
     submitHandler,
-    initialValues,
-    validate
+    initialValues
   );
 
   useEffect(() => {
@@ -31,14 +30,15 @@ export default function Edit() {
   }, [bookId, setValues]);
 
   async function submitHandler() {
+    const errors = validate(values);
+    setErrorState(errors);
     try {
       if (Object.keys(errors).length > 0) {
-        setErrors("Please fix the validation errors before submitting.");
         return;
       }
 
       request(`/data/books/${bookId}`, "PUT", values);
-      setErrors(null);
+      setErrorState(null);
       navigate("/catalog");
     } catch (error) {
       alert(error.message);
@@ -68,7 +68,9 @@ export default function Edit() {
               placeholder="Enter book title"
               className="border border-gray-300 p-3 rounded-xl focus:outline-none focus:border-indigo-500 focus:shadow-md transition"
             />
-            {errors.title && <p className="text-red-500">{errors.title}</p>}
+            {errorState?.title && (
+              <p className="text-red-500">{errorState.title}</p>
+            )}
           </div>
 
           <div className="flex flex-col">
@@ -84,7 +86,9 @@ export default function Edit() {
               placeholder="Enter author name"
               className="border border-gray-300 p-3 rounded-xl focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-300 transition"
             />
-            {errors.author && <p className="text-red-500">{errors.author}</p>}
+            {errorState?.author && (
+              <p className="text-red-500">{errorState.author}</p>
+            )}
           </div>
 
           <div className="flex flex-col">
@@ -100,7 +104,9 @@ export default function Edit() {
               placeholder="Enter genre"
               className="border border-gray-300 p-3 rounded-xl focus:outline-none focus:border-indigo-500 focus:shadow-md transition"
             />
-            {errors.genre && <p className="text-red-500">{errors.genre}</p>}
+            {errorState?.genre && (
+              <p className="text-red-500">{errorState.genre}</p>
+            )}
           </div>
 
           <div className="flex flex-col">
@@ -116,7 +122,9 @@ export default function Edit() {
               placeholder="Number of pages"
               className="border border-gray-300 p-3 rounded-xl focus:outline-none focus:border-indigo-500 focus:shadow-md transition"
             />
-            {errors.pages && <p className="text-red-500">{errors.pages}</p>}
+            {errorState?.pages && (
+              <p className="text-red-500">{errorState.pages}</p>
+            )}
           </div>
 
           <div className="flex flex-col">
@@ -131,7 +139,9 @@ export default function Edit() {
               type="date"
               className="border border-gray-300 p-3 rounded-xl focus:outline-none focus:border-indigo-500 focus:shadow-md transition"
             />
-            {errors.date && <p className="text-red-500">{errors.date}</p>}
+            {errorState?.date && (
+              <p className="text-red-500">{errorState.date}</p>
+            )}
           </div>
 
           <div className="flex flex-col">
@@ -150,8 +160,8 @@ export default function Edit() {
               placeholder="Enter image URL"
               className="border border-gray-300 p-3 rounded-xl focus:outline-none focus:border-indigo-500 focus:shadow-md transition"
             />
-            {errors.imageUrl && (
-              <p className="text-red-500">{errors.imageUrl}</p>
+            {errorState?.imageUrl && (
+              <p className="text-red-500">{errorState.imageUrl}</p>
             )}
           </div>
 
@@ -168,10 +178,10 @@ export default function Edit() {
               placeholder="Write a short summary"
               className="border border-gray-300 p-3 rounded-xl focus:outline-none focus:border-indigo-500 focus:shadow-md transition"
             />
-            {errors.summary && <p className="text-red-500">{errors.summary}</p>}
+            {errorState?.summary && (
+              <p className="text-red-500">{errorState.summary}</p>
+            )}
           </div>
-
-          {error && <p className="text-red-500 text-center">{error}</p>}
 
           <button
             type="submit"

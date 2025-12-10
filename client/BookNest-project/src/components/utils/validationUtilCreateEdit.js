@@ -1,24 +1,7 @@
 export default function validate(values) {
   const errors = {};
 
-  if (!values?.username?.trim()) {
-    errors.username = "Username is required";
-  }
-  if (values?.username?.length < 3) {
-    errors.username = "Username must be at least 3 characters long";
-  }
-  if (values?.username?.length > 20) {
-    errors.username = "Username cannot exceed 20 characters";
-  }
-
-  if (values?.password?.length < 6) {
-    errors.password = "Password must be at least 6 characters long";
-  }
-  if (values?.password?.length > 50) {
-    errors.password = "Password cannot exceed 50 characters";
-  }
-
-  if (!values?.title?.trim()) {
+  if (values.title.length === 0 || !values?.title?.trim()) {
     errors.title = "Title is required";
   }
 

@@ -2,7 +2,7 @@ import { useContext } from "react";
 import UserContext from "../../context/userContext";
 import { useState } from "react";
 import useForm from "../hooks/useForm";
-import validateLogin from "../utils/loginRegValidation.js";
+import validateLogin from "../utils/validationLogin.js";
 
 const initialValues = {
   email: "",
@@ -55,7 +55,7 @@ export default function Login() {
             Email
           </label>
           <input
-            type="text"
+            type="email"
             name="email"
             value={values.email}
             onChange={changeHandler}
